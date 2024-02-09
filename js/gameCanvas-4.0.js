@@ -18,11 +18,7 @@ function GameCanvas(settings) {
     this.updateSizeOnResize = true;
   }
 
-  if (this.updateSizeOnResize) {
-    window.addEventListener("resize", () => {
-      this.fillPageWithCanvas(); // 调整画布大小以填充页面
-    });
-  }
+
 
 
   this.functions = [];
@@ -948,6 +944,12 @@ function GameCanvas(settings) {
     if (this.globalFunctions) {
       window.mouse = this.mouse;
       window.touches = this.touches;
+    }
+
+    if (this.updateSizeOnResize) {
+      window.addEventListener("resize", () => {
+        this.fillPageWithCanvas(); // 调整画布大小以填充页面
+      });
     }
 
     this.canvas.addEventListener("mousemove", event => {
