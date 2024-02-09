@@ -1,6 +1,8 @@
 function GameCanvas(settings) {
   let top = this;
 
+  this.updateSizeOnResize = false;
+  
   this.fillPageWithCanvas = function () {
     top.canvas.style.position = "fixed";
     top.canvas.style.top = "0";
