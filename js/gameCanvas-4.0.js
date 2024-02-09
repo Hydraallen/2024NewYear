@@ -437,7 +437,7 @@ function GameCanvas(settings) {
    ******************/
 
   this.createSound = function (url, volume = 1, startTime = 0, looping = false) {
-    var audio = new Audio("../EverythingInItsRightPlace.mp3");
+    var audio = new Audio("./EverythingInItsRightPlace.mp3");
     audio.loop = looping;
     audio.currentTime = startTime;
     audio.volume = volume;
@@ -464,7 +464,7 @@ function GameCanvas(settings) {
   }
 
   this.backgroundMusic = function (url) {
-    var audio = new Audio("../EverythingInItsRightPlace.mp3");
+    var audio = new Audio("./EverythingInItsRightPlace.mp3");
     audio.loop = true;
     audio.play();
     return audio;
