@@ -69,7 +69,7 @@ background("red");
 loop();
 function loop() {
   gc.ctx.globalCompositeOperation = "source-over";
-  background("rgba(0, 0, 0, 0.1)");
+  background("rgba(255, 0, 0, 0.5)");
   gc.ctx.drawImage(starImage, 0, 0);
   gc.ctx.globalCompositeOperation = "lighter";
 
