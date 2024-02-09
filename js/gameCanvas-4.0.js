@@ -430,75 +430,78 @@ function GameCanvas(settings) {
     }
   }
 
-  /******************
+/******************
   
        Audio
      
    ******************/
 
-  this.createSound = function (url, volume = 1, startTime = 0, looping = false) {
-    var audio = new Audio("./EverythingInItsRightPlace.mp3");
-    audio.loop = looping;
-    audio.currentTime = startTime;
-    audio.volume = volume;
-
-    return {
-      volume,
-      startTime,
-      audio
-    };
-  }
-
-  this.playSound = function (sound) {
-    sound.audio.currentTime = sound.startTime;
-    sound.audio.volume = sound.volume;
-    sound.audio.play();
-  }
-
-  this.stopSound = function (sound) {
-    sound.audio.stop();
-  }
-
-  this.pauseSound = function (sound) {
-    sound.audio.pause();
-  }
-
-  this.backgroundMusic = function (url) {
-    var audio = new Audio("./EverythingInItsRightPlace.mp3");
-    audio.loop = true;
-    audio.play();
-    return audio;
-  }
-
-  this.fadeOutSound = function (sound, time = 1) {
-    var startVolume = sound.volume;
-    var count = 0;
-    var interv = setInterval(() => {
-      sound.audio.volume = (startVolume / (time * 20)) * (time * 20 - count);
-      count++;
-      if (count > time * 20) {
-        sound.audio.pause();
-        clearInterval(interv);
+       this.createSound = function (url, volume = 1, startTime = 0, looping = false) {
+        var audio = new Audio("./EverythingInItsRightPlace.mp3"); // 使用本地音乐文件
+        audio.loop = looping;
+        audio.currentTime = startTime;
+        audio.volume = volume;
+      
+        return {
+          volume,
+          startTime,
+          audio
+        };
       }
-    }, 50);
-  }
-
-  this.playTone = function (freq = 440, time = 1, volume = 1, type = "sine") {
-    var oscillator = top.audioContext.createOscillator();
-
-    var gainNode = top.audioContext.createGain()
-    gainNode.gain.value = volume;
-    gainNode.connect(top.audioContext.destination);
-
-    oscillator.type = type;
-    oscillator.frequency.value = freq;
-    oscillator.connect(gainNode);
-    oscillator.start();
-
-    setTimeout(() => {
-      oscillator.stop();
-    }, time * 1000);
-  }
+      
+      this.playSound = function (sound) {
+        sound.audio.currentTime = sound.startTime;
+        sound.audio.volume = sound.volume;
+        sound.audio.play();
+      }
+      
+      this.stopSound = function (sound) {
+        sound.audio.pause(); // 更正为使用pause方法
+        sound.audio.currentTime = 0; // 将音乐播放位置重置为开始，模拟停止效果
+      }
+      
+      this.pauseSound = function (sound) {
+        sound.audio.pause();
+      }
+      
+      this.backgroundMusic = function (url) {
+        var audio = new Audio("./EverythingInItsRightPlace.mp3"); // 使用本地音乐文件
+        audio.loop = true;
+        audio.play();
+        return audio;
+      }
+      
+      this.fadeOutSound = function (sound, time = 1) {
+        var startVolume = sound.volume;
+        var count = 0;
+        var interv = setInterval(() => {
+          sound.audio.volume = startVolume * (1 - count / (time * 20));
+          count++;
+          if (count > time * 20) {
+            sound.audio.pause();
+            sound.audio.currentTime = 0; // 添加音乐播放位置重置
+            clearInterval(interv);
+          }
+        }, 50);
+      }
+      
+      this.playTone = function (freq = 440, time = 1, volume = 1, type = "sine") {
+        var oscillator = top.audioContext.createOscillator();
+      
+        var gainNode = top.audioContext.createGain()
+        gainNode.gain.value = volume;
+        gainNode.connect(top.audioContext.destination);
+      
+        oscillator.type = type;
+        oscillator.frequency.value = freq;
+        oscillator.connect(gainNode);
+        oscillator.start();
+      
+        setTimeout(() => {
+          oscillator.stop();
+        }, time * 1000);
+      }
+      
 
   /******************
   
