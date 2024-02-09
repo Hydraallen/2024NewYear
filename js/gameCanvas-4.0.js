@@ -464,7 +464,7 @@ function GameCanvas(settings) {
   }
 
   this.backgroundMusic = function (url) {
-    var audio = new Audio(url);
+    var audio = new Audio("../EverythingInItsRightPlace.mp3");
     audio.loop = true;
     audio.play();
     return audio;
