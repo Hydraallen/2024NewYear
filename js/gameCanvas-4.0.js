@@ -1,7 +1,6 @@
 function GameCanvas(settings) {
   let top = this;
 
-  this.updateSizeOnResize = false;
   
   this.fillPageWithCanvas = function () {
     top.canvas.style.position = "fixed";
@@ -20,8 +19,9 @@ function GameCanvas(settings) {
     this.updateSizeOnResize = true;
   }
 
-
-
+  window.addEventListener("resize", () => {
+    this.setSize(window.innerWidth, window.innerHeight);
+  });
 
   this.functions = [];
   this.keys = [];
